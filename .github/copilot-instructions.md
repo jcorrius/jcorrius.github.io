@@ -61,7 +61,6 @@ npm run test:coverage # Run tests with coverage report
 │   ├── main.ts          # TypeScript entry point
 │   ├── scss/            # Sass stylesheets
 │   ├── assets/          # Static assets (images, etc.)
-│   ├── pug/             # Legacy Pug templates (being phased out)
 │   └── test/            # Unit tests
 ├── public/              # Static public assets
 ├── dist/               # Built output (auto-generated)
