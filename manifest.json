@@ -1,0 +1,17 @@
+{
+  "name": "Jesús Corrius - Resume",
+  "short_name": "JC Resume",
+  "description": "Personal resume and portfolio website of Jesús Corrius",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#ffffff",
+  "theme_color": "#bd5d38",
+  "orientation": "portrait-primary",
+  "icons": [
+    {
+      "src": "/assets/img/favicon.ico",
+      "sizes": "32x32",
+      "type": "image/x-icon"
+    }
+  ]
+}
