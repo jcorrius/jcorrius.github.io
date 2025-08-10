@@ -11,7 +11,7 @@ const mockIntersectionObserver = vi.fn(() => ({
   takeRecords: vi.fn(() => []),
 }));
 
-global.IntersectionObserver = mockIntersectionObserver as any;
+(globalThis as any).IntersectionObserver = mockIntersectionObserver;
 
 // Setup DOM before each test
 beforeEach(() => {
