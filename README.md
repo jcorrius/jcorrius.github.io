@@ -21,7 +21,7 @@ Visit the live website: [https://jcorrius.github.io](https://jcorrius.github.io)
 
 ### Prerequisites
 
-- Node.js 18+ 
+- Node.js 18+
 - npm
 
 ### Getting Started
@@ -97,12 +97,14 @@ npm run test:coverage # Run tests with coverage report
 This project was modernized from the original Start Bootstrap Resume template:
 
 ### Security & Dependencies
+
 - ✅ Updated Bootstrap from 4.5.0 to 5.3.7
 - ✅ Fixed 22 security vulnerabilities
 - ✅ Added Dependabot for automated dependency management
 - ✅ Implemented GitHub CodeQL for security scanning
 
 ### Developer Experience
+
 - ✅ Added TypeScript configuration for better code intelligence
 - ✅ Implemented ESLint + Prettier for consistent code formatting
 - ✅ Replaced custom build scripts with modern Vite bundler
@@ -110,18 +112,21 @@ This project was modernized from the original Start Bootstrap Resume template:
 - ✅ Integrated Vitest testing framework
 
 ### Modern Build System
+
 - ✅ Migrated from custom Node.js scripts to Vite
 - ✅ Updated to PostCSS 8 with modern autoprefixer
 - ✅ Added tree-shaking and modern bundling optimizations
 - ✅ Implemented development server with live reload
 
 ### CI/CD & Automation
+
 - ✅ Added GitHub Actions workflows for automated building and testing
 - ✅ Implemented automated deployment to GitHub Pages
 - ✅ Added code quality checks and security scanning
 - ✅ Set up automated dependency updates
 
 ### Web Standards
+
 - ✅ Updated to Bootstrap 5 for modern CSS features
 - ✅ Improved accessibility and SEO
 - ✅ Added PWA capabilities
