@@ -36,9 +36,28 @@
       type="text/css"
     />
     <script type="module" crossorigin src="/assets/main-CrRjFydw.js"></script>
-    <link rel="stylesheet" crossorigin href="/assets/main--p91TBOz.css">
-    <script type="module">import.meta.url;import("_").catch(()=>1);(async function*(){})().next();window.__vite_is_modern_browser=true</script>
-    <script type="module">!function(){if(window.__vite_is_modern_browser)return;console.warn("vite: loading legacy chunks, syntax error above and the same error below should be ignored");var e=document.getElementById("vite-legacy-polyfill"),n=document.createElement("script");n.src=e.src,n.onload=function(){System.import(document.getElementById('vite-legacy-entry').getAttribute('data-src'))},document.body.appendChild(n)}();</script>
+    <link rel="stylesheet" crossorigin href="/assets/main--p91TBOz.css" />
+    <script type="module">
+      import.meta.url;
+      import('_').catch(() => 1);
+      (async function* () {})().next();
+      window.__vite_is_modern_browser = true;
+    </script>
+    <script type="module">
+      !(function () {
+        if (window.__vite_is_modern_browser) return;
+        console.warn(
+          'vite: loading legacy chunks, syntax error above and the same error below should be ignored'
+        );
+        var e = document.getElementById('vite-legacy-polyfill'),
+          n = document.createElement('script');
+        (n.src = e.src),
+          (n.onload = function () {
+            System.import(document.getElementById('vite-legacy-entry').getAttribute('data-src'));
+          }),
+          document.body.appendChild(n);
+      })();
+    </script>
   </head>
 
   <body id="page-top">
@@ -130,6 +149,23 @@
       <section id="experience" class="resume-section">
         <div class="resume-section-content">
           <h2 class="mb-5">Experience</h2>
+
+          <div class="d-flex flex-column flex-md-row justify-content-between mb-5">
+            <div class="flex-grow-1">
+              <h3 class="mb-0">Head of Architecture</h3>
+              <div class="subheading mb-3">Travelgate</div>
+              <p>
+                Key responsibilities include architecting, designing, and implementing high-quality
+                software solutions, leading a team of architects, and collaborating closely with
+                cross-functional teams. My responsibilities include also evaluate emerging
+                technologies like AI, identify areas for improvement, and ensure the implementation
+                of architectural standards across the organization.
+              </p>
+            </div>
+            <div class="flex-shrink-0">
+              <span class="text-primary">May 2023 - Present</span>
+            </div>
+          </div>
 
           <div class="d-flex flex-column flex-md-row justify-content-between mb-5">
             <div class="flex-grow-1">
@@ -560,8 +596,36 @@
     </div>
 
     <!-- Scripts will be loaded by Vite -->
-    <script nomodule>!function(){var e=document,t=e.createElement("script");if(!("noModule"in t)&&"onbeforeload"in t){var n=!1;e.addEventListener("beforeload",(function(e){if(e.target===t)n=!0;else if(!e.target.hasAttribute("nomodule")||!n)return;e.preventDefault()}),!0),t.type="module",t.src=".",e.head.appendChild(t),t.remove()}}();</script>
-    <script nomodule crossorigin id="vite-legacy-polyfill" src="/assets/polyfills-legacy-jTi9AKUb.js"></script>
-    <script nomodule crossorigin id="vite-legacy-entry" data-src="/assets/main-legacy-uBo1te1Y.js">System.import(document.getElementById('vite-legacy-entry').getAttribute('data-src'))</script>
+    <script nomodule>
+      !(function () {
+        var e = document,
+          t = e.createElement('script');
+        if (!('noModule' in t) && 'onbeforeload' in t) {
+          var n = !1;
+          e.addEventListener(
+            'beforeload',
+            function (e) {
+              if (e.target === t) n = !0;
+              else if (!e.target.hasAttribute('nomodule') || !n) return;
+              e.preventDefault();
+            },
+            !0
+          ),
+            (t.type = 'module'),
+            (t.src = '.'),
+            e.head.appendChild(t),
+            t.remove();
+        }
+      })();
+    </script>
+    <script
+      nomodule
+      crossorigin
+      id="vite-legacy-polyfill"
+      src="/assets/polyfills-legacy-jTi9AKUb.js"
+    ></script>
+    <script nomodule crossorigin id="vite-legacy-entry" data-src="/assets/main-legacy-uBo1te1Y.js">
+      System.import(document.getElementById('vite-legacy-entry').getAttribute('data-src'));
+    </script>
   </body>
 </html>
