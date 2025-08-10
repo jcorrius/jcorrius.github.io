@@ -10,6 +10,6 @@ $orange: #bd5d38;
 
 $primary: $orange;
 
-// Override Bootstrap yiq lightness value
-
-$yiq-contrasted-threshold: 205;
+// Bootstrap 5 uses different color contrast calculations
+// Override the color contrast threshold
+$min-contrast-ratio: 3;

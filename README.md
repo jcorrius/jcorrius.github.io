@@ -1,22 +1,176 @@
-# [Start Bootstrap - Resume](https://startbootstrap.com/themes/resume/)
+# Jesús Corrius - Personal Website
 
-[Resume](https://startbootstrap.com/themes/resume/) is a resume and CV theme for [Bootstrap](https://getbootstrap.com/) created by [Start Bootstrap](https://startbootstrap.com/). This theme features a fixed sidebar with content sections to build a simple, yet elegant resume.
+A modern, responsive personal resume website built with TypeScript, Vite, and Bootstrap 5. This project has been modernized from the original Start Bootstrap Resume template to align with current web development best practices and AI-assisted coding tools.
 
-## Preview
+## 🚀 Live Demo
 
-[![Resume Preview](https://startbootstrap.com/assets/img/screenshots/themes/resume.png)](https://startbootstrap.github.io/startbootstrap-resume/)
+Visit the live website: [https://jcorrius.github.io](https://jcorrius.github.io)
 
-**[View Live Preview](https://startbootstrap.github.io/startbootstrap-resume/)**
+## ✨ Features
 
-## Status
+- **Modern Tech Stack**: TypeScript, Vite, Bootstrap 5, SCSS
+- **Developer Experience**: ESLint, Prettier, hot module replacement
+- **Testing**: Vitest with DOM testing utilities
+- **PWA Ready**: Web app manifest and service worker support
+- **CI/CD Pipeline**: Automated testing, building, and deployment
+- **Security**: CodeQL analysis and automated dependency updates
+- **Accessibility**: Enhanced keyboard navigation and screen reader support
+- **Performance**: Optimized builds with tree-shaking and legacy browser support
 
-[![GitHub license](https://img.shields.io/badge/license-MIT-blue.svg)](https://raw.githubusercontent.com/StartBootstrap/startbootstrap-resume/master/LICENSE)
-[![npm version](https://img.shields.io/npm/v/startbootstrap-resume.svg)](https://www.npmjs.com/package/startbootstrap-resume)
-[![Build Status](https://travis-ci.org/StartBootstrap/startbootstrap-resume.svg?branch=master)](https://travis-ci.org/StartBootstrap/startbootstrap-resume)
-[![dependencies Status](https://david-dm.org/StartBootstrap/startbootstrap-resume/status.svg)](https://david-dm.org/StartBootstrap/startbootstrap-resume)
-[![devDependencies Status](https://david-dm.org/StartBootstrap/startbootstrap-resume/dev-status.svg)](https://david-dm.org/StartBootstrap/startbootstrap-resume?type=dev)
+## 🛠️ Development
 
-## Download and Installation
+### Prerequisites
+
+- Node.js 18+
+- npm
+
+### Getting Started
+
+```bash
+# Clone the repository
+git clone https://github.com/jcorrius/jcorrius.github.io.git
+cd jcorrius.github.io
+
+# Install dependencies
+npm install
+
+# Start development server
+npm run dev
+```
+
+### Available Scripts
+
+```bash
+# Development
+npm run dev          # Start development server with hot reload
+npm run build        # Build for production
+npm run preview      # Preview production build
+
+# Code Quality
+npm run lint         # Run ESLint
+npm run lint:fix     # Fix ESLint errors automatically
+npm run format       # Format code with Prettier
+npm run format:check # Check code formatting
+npm run type-check   # Run TypeScript type checking
+
+# Testing
+npm run test         # Run tests
+npm run test:ui      # Run tests with UI
+npm run test:coverage # Run tests with coverage report
+```
+
+## 🏗️ Architecture
+
+### Project Structure
+
+```
+├── .github/
+│   ├── workflows/          # GitHub Actions CI/CD
+│   └── dependabot.yml      # Automated dependency updates
+├── public/                 # Static assets
+│   ├── assets/            # Images, favicon, etc.
+│   └── manifest.json      # PWA manifest
+├── src/
+│   ├── scss/              # Sass stylesheets
+│   │   ├── components/    # Component styles
+│   │   ├── sections/      # Section-specific styles
+│   │   └── variables/     # Sass variables
+│   ├── test/              # Test files
+│   └── main.ts            # TypeScript entry point
+├── eslint.config.js       # ESLint configuration
+├── tsconfig.json          # TypeScript configuration
+├── vite.config.ts         # Vite configuration
+└── vitest.config.ts       # Vitest configuration
+```
+
+### Key Technologies
+
+- **Vite**: Fast build tool with hot module replacement
+- **TypeScript**: Type-safe JavaScript with excellent tooling
+- **Bootstrap 5**: Modern CSS framework with utility classes
+- **Sass**: CSS preprocessor for maintainable stylesheets
+- **Vitest**: Fast unit testing framework
+- **ESLint + Prettier**: Code quality and formatting
+
+## 🔄 Modernization Changes
+
+This project was modernized from the original Start Bootstrap Resume template:
+
+### Security & Dependencies
+
+- ✅ Updated Bootstrap from 4.5.0 to 5.3.7
+- ✅ Fixed 22 security vulnerabilities
+- ✅ Added Dependabot for automated dependency management
+- ✅ Implemented GitHub CodeQL for security scanning
+
+### Developer Experience
+
+- ✅ Added TypeScript configuration for better code intelligence
+- ✅ Implemented ESLint + Prettier for consistent code formatting
+- ✅ Replaced custom build scripts with modern Vite bundler
+- ✅ Added hot module replacement for faster development
+- ✅ Integrated Vitest testing framework
+
+### Modern Build System
+
+- ✅ Migrated from custom Node.js scripts to Vite
+- ✅ Updated to PostCSS 8 with modern autoprefixer
+- ✅ Added tree-shaking and modern bundling optimizations
+- ✅ Implemented development server with live reload
+
+### CI/CD & Automation
+
+- ✅ Added GitHub Actions workflows for automated building and testing
+- ✅ Implemented automated deployment to GitHub Pages
+- ✅ Added code quality checks and security scanning
+- ✅ Set up automated dependency updates
+
+### Web Standards
+
+- ✅ Updated to Bootstrap 5 for modern CSS features
+- ✅ Improved accessibility and SEO
+- ✅ Added PWA capabilities
+- ✅ Enhanced with modern CSS animations and interactions
+
+## 🚀 Deployment
+
+The site is automatically deployed to GitHub Pages via GitHub Actions when changes are pushed to the main branch.
+
+### Manual Deployment
+
+```bash
+# Build the project
+npm run build
+
+# The dist/ folder contains the built website
+# Deploy the contents to your web server
+```
+
+## 🤝 Contributing
+
+1. Fork the repository
+2. Create a feature branch: `git checkout -b feature/amazing-feature`
+3. Make your changes
+4. Run tests: `npm test`
+5. Check linting: `npm run lint`
+6. Commit your changes: `git commit -m 'Add amazing feature'`
+7. Push to the branch: `git push origin feature/amazing-feature`
+8. Open a Pull Request
+
+## 📄 License
+
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+
+## 🙏 Acknowledgments
+
+- Original template by [Start Bootstrap](https://startbootstrap.com/)
+- Built with [Vite](https://vitejs.dev/)
+- Styled with [Bootstrap](https://getbootstrap.com/)
+- Icons by [Font Awesome](https://fontawesome.com/)
+
+---
+
+**Built with ❤️ by [Jesús Corrius](https://github.com/jcorrius)**
 
 To begin using this template, choose one of the following options to get started:
 

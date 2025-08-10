@@ -1,52 +1,68 @@
 {
-    "title": "Resume",
-    "name": "startbootstrap-resume",
-    "version": "6.0.1",
-    "scripts": {
-        "build": "npm run clean && npm run build:pug && npm run build:scss && npm run build:scripts && npm run build:assets",
-        "build:assets": "node scripts/build-assets.js",
-        "build:pug": "node scripts/build-pug.js",
-        "build:scripts": "node scripts/build-scripts.js",
-        "build:scss": "node scripts/build-scss.js",
-        "clean": "node scripts/clean.js",
-        "start": "npm run build && node scripts/start.js",
-        "start:debug": "npm run build && node scripts/start-debug.js"
-    },
-    "description": "Resume is a simple, yet elegant resume and CV theme for Bootstrap 4.",
-    "keywords": [
-        "css",
-        "sass",
-        "html",
-        "responsive",
-        "theme",
-        "template"
-    ],
-    "homepage": "https://startbootstrap.com/template-overviews/resume",
-    "bugs": {
-        "url": "https://github.com/StartBootstrap/startbootstrap-resume/issues",
-        "email": "feedback@startbootstrap.com"
-    },
-    "license": "MIT",
-    "author": "Start Bootstrap",
-    "contributors": [
-        "David Miller (http://davidmiller.io/)"
-    ],
-    "repository": {
-        "type": "git",
-        "url": "https://github.com/StartBootstrap/startbootstrap-resume.git"
-    },
-    "dependencies": {
-        "bootstrap": "^4.5.0"
-    },
-    "devDependencies": {
-        "autoprefixer": "^9.8.0",
-        "browser-sync": "^2.11.2",
-        "chokidar": "^3.4.0",
-        "concurrently": "^5.2.0",
-        "postcss": "^7.0.36",
-        "prettier": "^2.0.5",
-        "pug": "^3.0.1",
-        "sass": "^1.26.8",
-        "shelljs": "^0.8.5"
-    }
+  "name": "jcorrius-personal-website",
+  "version": "2.0.0",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "tsc && vite build",
+    "preview": "vite preview",
+    "test": "vitest",
+    "test:ui": "vitest --ui",
+    "test:coverage": "vitest --coverage",
+    "lint": "eslint . --ext ts,js,tsx,jsx --report-unused-disable-directives --max-warnings 0",
+    "lint:fix": "eslint . --ext ts,js,tsx,jsx --fix",
+    "format": "prettier --write .",
+    "format:check": "prettier --check .",
+    "type-check": "tsc --noEmit"
+  },
+  "description": "Modernized personal resume website built with TypeScript, Vite, and Bootstrap 5.",
+  "keywords": [
+    "resume",
+    "portfolio",
+    "personal-website",
+    "typescript",
+    "vite",
+    "bootstrap",
+    "responsive",
+    "modern"
+  ],
+  "homepage": "https://jcorrius.github.io",
+  "bugs": {
+    "url": "https://github.com/jcorrius/jcorrius.github.io/issues"
+  },
+  "license": "MIT",
+  "author": {
+    "name": "Jesús Corrius",
+    "email": "jcorrius@gmail.com",
+    "url": "https://github.com/jcorrius"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/jcorrius/jcorrius.github.io.git"
+  },
+  "dependencies": {
+    "bootstrap": "^5.3.7"
+  },
+  "devDependencies": {
+    "@eslint/js": "^9.33.0",
+    "@types/jsdom": "^21.1.7",
+    "@types/node": "^24.2.1",
+    "@typescript-eslint/eslint-plugin": "^8.39.0",
+    "@typescript-eslint/parser": "^8.39.0",
+    "@vitejs/plugin-legacy": "^7.2.1",
+    "@vitest/ui": "^3.2.4",
+    "autoprefixer": "^10.4.21",
+    "chokidar": "^3.4.0",
+    "eslint": "^9.33.0",
+    "eslint-config-prettier": "^10.1.8",
+    "globals": "^16.3.0",
+    "jsdom": "^26.1.0",
+    "postcss": "^8.5.6",
+    "prettier": "^2.8.8",
+    "sass": "^1.26.8",
+    "shelljs": "^0.8.5",
+    "typescript": "^5.9.2",
+    "vite": "^7.1.1",
+    "vitest": "^3.2.4"
+  }
 }
