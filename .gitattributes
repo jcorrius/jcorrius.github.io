@@ -1,0 +1,46 @@
+# .gitattributes for jcorrius.github.io
+# Ensure consistent line endings and proper diffing for all files
+
+# Set default behavior to automatically normalize line endings
+* text=auto
+
+# Explicitly declare text files
+*.js     text eol=lf
+*.ts     text eol=lf
+*.json   text eol=lf
+*.html   text eol=lf
+*.css    text eol=lf
+*.scss   text eol=lf
+*.md     text eol=lf
+*.yml    text eol=lf
+*.yaml   text eol=lf
+*.xml    text eol=lf
+*.txt    text eol=lf
+*.sh     text eol=lf
+*.ps1    text eol=lf
+*.gitignore text eol=lf
+*.gitattributes text eol=lf
+
+# Treat images and binary assets as binary
+*.png    binary
+*.jpg    binary
+*.jpeg   binary
+*.ico    binary
+*.webp   binary
+*.avif   binary
+*.svg    text
+
+# Prevent linguist from classifying minified files as source
+*.min.js linguist-generated
+*.min.css linguist-generated
+
+# Mark lock files as text
+package-lock.json text eol=lf
+
+# GitHub Actions workflows
+.github/**/*.yml text eol=lf
+
+# Exclude build output
+/dist/* -text
+
+# End of .gitattributes
