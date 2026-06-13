@@ -15,7 +15,7 @@
     "noUnusedLocals": true,
     "noUnusedParameters": true,
     "noFallthroughCasesInSwitch": true,
-    "types": ["@types/node", "vitest"]
+    "types": ["@types/node", "vitest", "vite/client"]
   },
   "include": ["src/**/*", "vite.config.ts", "vitest.config.ts"],
   "exclude": ["node_modules", "dist", "scripts"]
