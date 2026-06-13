@@ -10,20 +10,20 @@ This is a modernized personal resume website for Jesús Corrius, built with mode
 
 ### Core Technologies
 
-- **Frontend**: TypeScript, HTML5, Bootstrap 5.3.7
-- **Build System**: Vite 7.x with hot module replacement
+- **Frontend**: TypeScript, HTML5, Bootstrap 5.3.x
+- **Build System**: Vite 8.x (Rolldown-based) with hot module replacement
 - **Styling**: SCSS/Sass with PostCSS and Autoprefixer
-- **Testing**: Vitest with jsdom for DOM testing
-- **Code Quality**: ESLint 9.x (flat config) + Prettier
+- **Testing**: Vitest 4.x with jsdom for DOM testing
+- **Code Quality**: ESLint 10.x (flat config) + Prettier
 - **CI/CD**: GitHub Actions with automated deployment
 
 ### Key Dependencies
 
-- `bootstrap@^5.3.7` - UI framework with data-bs-\* attributes
-- `vite@^7.1.1` - Modern build tool and dev server
-- `typescript@^5.9.2` - Type safety and enhanced IntelliSense
-- `vitest@^3.2.4` - Fast unit testing framework
-- `@vitejs/plugin-legacy@^7.2.1` - Legacy browser support
+- `bootstrap@^5.3.8` - UI framework with data-bs-\* attributes
+- `vite@^8.0.16` - Modern build tool and dev server (bundles with Rolldown)
+- `typescript@^6.0.3` - Type safety and enhanced IntelliSense
+- `vitest@^4.1.8` - Fast unit testing framework
+- `@vitejs/plugin-legacy@^8.0.2` - Legacy browser support
 
 ## Development Workflow
 
@@ -50,9 +50,33 @@ npm run type-check  # TypeScript type checking
 
 ```bash
 npm test            # Run tests in watch mode
+npm run test -- --run # Run all tests once (non-watch; what CI effectively does)
 npm run test:ui     # Run tests with UI interface
 npm run test:coverage # Run tests with coverage report
+
+# Run a single test file or a single test by name:
+npx vitest run src/test/main.test.ts
+npx vitest run -t "should have navigation elements"
 ```
+
+## Architecture (Big Picture)
+
+This is a **single-page static resume**, not an app. Understanding it requires reading a few files together:
+
+- **`index.html` is the source of truth for all content.** The entire resume (experience, education, skills, etc.) is hand-authored static markup. There is no templating, data file, or client-side rendering — to change resume text, edit `index.html` directly.
+- **`src/main.ts` is the only TS entry and adds progressive enhancement only.** It wires smooth scrolling for `.js-scroll-trigger` links, an `IntersectionObserver` that adds `.animate-in` to `.resume-section` elements on scroll, and a `keyboard-navigation` body class toggle. No framework, router, or state management.
+- **Styling flows through one SCSS entry.** `src/main.ts` imports `src/scss/styles.scss`, which imports in order: variables → Bootstrap → global → components (`scss/components/`) → sections (`scss/sections/`) → modern enhancements. Vite + PostCSS/autoprefixer (configured in `vite.config.ts`) compile it.
+- **Content is mirrored as structured data.** `index.html` contains a schema.org `Person` JSON-LD block in `<head>` **and** inline microdata (`itemprop`/`itemscope`) throughout `<body>`. When editing resume content, keep the visible text, the microdata, and the JSON-LD in sync.
+- **Build/deploy:** `npm run build` runs `tsc && vite build`; `@vitejs/plugin-legacy` emits `*-legacy` and polyfill chunks. CI (`.github/workflows/ci-cd.yml`, Node 22) runs type-check → lint → format:check → test → build, then deploys to GitHub Pages on `main`.
+
+## Repository-Specific Conventions & Gotchas
+
+- **Don't commit rebuilt `dist/` artifacts.** `dist/` is gitignored, but `dist/index.html` and `dist/assets/img/*` were force-tracked historically. A production build rewrites `dist/index.html` with new hashed asset names that aren't tracked — revert it (`git checkout -- dist/index.html`) and commit only real source changes.
+- **GitHub Pages deploys via GitHub Actions** (`build_type: workflow`), not a `gh-pages` branch. The repo's Pages **source must stay set to "GitHub Actions"**; if it reverts to "Deploy from a branch", the `github-pages` environment rejects deploys from `main` with "deployments are only allowed from gh-pages". The `test` job is the meaningful code gate; `deploy` runs only on `main`.
+- **Windows `format:check` false positive:** with `core.autocrlf=true`, `npm run format:check` flags `.prettierrc` (CRLF vs Prettier's `lf` default). CI on Linux (LF) passes it — don't "fix" it.
+- **`npm test` is watch mode locally;** use `npm run test -- --run` for a one-shot run that mirrors CI.
+- **`tsconfig.json` uses an explicit `types` array.** Keep `vite/client` listed so TypeScript (6+) resolves the `.scss` side-effect import in `main.ts` (otherwise it errors TS2882).
+- **Lint is strict:** ESLint flat config (`eslint.config.js`) runs with `--max-warnings 0`, and `no-console` is a warning — a stray `console.*` fails CI.
 
 ## Project Structure
 
