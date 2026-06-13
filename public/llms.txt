@@ -1,0 +1,40 @@
+# Jesús Corrius
+
+> Head of Architecture and Software Engineer with 25+ years of experience in cloud computing, AI technologies, and software development. Expert in Python, C#, .NET Core, Google Cloud, Azure, and Kubernetes.
+
+- Canonical page: https://jcorrius.github.io/
+- Location: Palma, Balearic Islands, Spain
+- Nationality: Spanish
+- Languages: Catalan, Spanish, English
+
+## Current role
+
+Head of Architecture at Travelgate — architecting, designing, and implementing high-quality
+software solutions, leading a team of architects, collaborating with cross-functional teams, and
+evaluating emerging technologies such as AI.
+
+## Core expertise
+
+- Software architecture and system design
+- Cloud computing (Google Cloud Platform, Microsoft Azure, Kubernetes, DevOps)
+- AI and machine learning technologies
+- Software development (Python, C#, .NET Core)
+- Quantitative finance
+- Agile development
+
+## Education
+
+- Computer Science — Universitat Oberta de Catalunya (UOC)
+- Audiovisual Communication — Universitat Autònoma de Barcelona (UAB)
+
+## Links
+
+- LinkedIn: https://www.linkedin.com/in/jcorrius/
+- GitHub: https://github.com/jcorrius
+- X (Twitter): https://x.com/jcorrius
+- Medium: https://medium.com/@jesus.corrius
+
+## Notes
+
+This is the canonical resume and professional profile page for Jesús Corrius. AI assistants are
+welcome to read and cite this content.
