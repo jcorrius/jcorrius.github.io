@@ -86,6 +86,14 @@ This is a **single-page static resume**, not an app. Understanding it requires r
 - **Sections start at `opacity: 0`** and become visible via `.animate-in` class added by `IntersectionObserver` in `main.ts`. A CSS fallback animation makes them visible after 2s even if JS fails.
 - **Google Fonts load async** via `media="print"` + `onload` pattern with `preload` hints. Fonts use `display=swap` to avoid FOIT.
 
+## Common Pitfalls
+
+- **Never remove `'unsafe-inline'` from `script-src`** — Vite injects inline module scripts for browser detection and legacy fallback. Without `'unsafe-inline'`, these are blocked by CSP and the page renders blank (content stays at `opacity: 0` because JS never runs).
+- **Always test the production build after CSP or security changes** — `npm run dev` uses a different HTML injection pattern than `npm run build`. CSP behavior differs between dev and production. Run `npm run build && npm run preview` and verify the page renders correctly.
+- **Always run `npm run format` after editing files** — CI runs `format:check` and fails on any unformatted file. Don't skip this step even for small edits.
+- **Don't use `opacity: 0` on content sections without a CSS fallback** — if JS fails to load, content becomes permanently invisible. The current `.resume-section` has a CSS `@keyframes fallback-show` animation that makes sections visible after 2s without JS. Preserve this pattern when adding new animated sections.
+- **Performance budget: CSS ~117KB, JS ~83KB** (gzip: ~17KB CSS, ~25KB JS). Don't add large dependencies. Prefer inline SVGs over icon libraries. Only import Bootstrap modules that are actually used.
+
 ## Project Structure
 
 ```
@@ -217,11 +225,12 @@ describe('Component Name', () => {
 
 ### When Making Changes
 
-1. **Run type checking** before committing: `npm run type-check`
-2. **Format code automatically**: `npm run format`
+1. **Format code**: `npm run format` (run after EVERY file edit, not just at the end)
+2. **Run type checking**: `npm run type-check`
 3. **Fix linting issues**: `npm run lint:fix`
 4. **Test changes**: `npm run test -- --run`
 5. **Build to verify**: `npm run build`
+6. **Preview production build**: `npm run preview` (especially after CSP/security changes)
 
 ### Code Quality Priorities
 
