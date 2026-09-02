@@ -35,3 +35,22 @@ p.lead {
   font-weight: 500;
   font-size: 1.5rem;
 }
+
+// Checkmark list (replaces Font Awesome fa-ul/fa-li)
+.check-list {
+  list-style: none;
+  padding-left: 1.5em;
+
+  li {
+    position: relative;
+    padding-left: 1.75em;
+    margin-bottom: 0.5em;
+  }
+
+  .check-li {
+    position: absolute;
+    left: 0;
+    top: 0.15em;
+    color: var(--bs-primary, #bd5d38);
+  }
+}
