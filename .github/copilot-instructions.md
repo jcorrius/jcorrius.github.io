@@ -19,11 +19,13 @@ This is a modernized personal resume website for Jesús Corrius, built with mode
 
 ### Key Dependencies
 
-- `bootstrap@^5.3.8` - UI framework with data-bs-\* attributes
-- `vite@^8.0.16` - Modern build tool and dev server (bundles with Rolldown)
+- `bootstrap@^5.3.8` - UI framework with data-bs-* attributes
+- `vite@^8.1.3` - Modern build tool and dev server (bundles with Rolldown)
 - `typescript@^6.0.3` - Type safety and enhanced IntelliSense
-- `vitest@^4.1.8` - Fast unit testing framework
-- `@vitejs/plugin-legacy@^8.0.2` - Legacy browser support
+- `vitest@^4.1.10` - Fast unit testing framework
+- `@vitejs/plugin-legacy@^8.1.0` - Legacy browser support
+- `eslint@^10.6.0` - Code linting (flat config)
+- `prettier@^3.9.4` - Code formatting
 
 ## Development Workflow
 
@@ -67,7 +69,7 @@ This is a **single-page static resume**, not an app. Understanding it requires r
 - **`src/main.ts` is the only TS entry and adds progressive enhancement only.** It wires smooth scrolling for `.js-scroll-trigger` links, an `IntersectionObserver` that adds `.animate-in` to `.resume-section` elements on scroll, and a `keyboard-navigation` body class toggle. No framework, router, or state management.
 - **Styling flows through one SCSS entry.** `src/main.ts` imports `src/scss/styles.scss`, which imports in order: variables → Bootstrap → global → components (`scss/components/`) → sections (`scss/sections/`) → modern enhancements. Vite + PostCSS/autoprefixer (configured in `vite.config.ts`) compile it.
 - **Content is mirrored as structured data.** `index.html` contains a schema.org `Person` JSON-LD block in `<head>` **and** inline microdata (`itemprop`/`itemscope`) throughout `<body>`. When editing resume content, keep the visible text, the microdata, and the JSON-LD in sync.
-- **Build/deploy:** `npm run build` runs `tsc && vite build`; `@vitejs/plugin-legacy` emits `*-legacy` and polyfill chunks. CI (`.github/workflows/ci-cd.yml`, Node 22) runs type-check → lint → format:check → test → build, then deploys to GitHub Pages on `main`.
+- **Build/deploy:** `npm run build` runs `tsc && vite build`; `@vitejs/plugin-legacy` emits `*-legacy` and polyfill chunks. Sourcemaps are generated in `dist/`. CI (`.github/workflows/ci-cd.yml`, Node 24) runs type-check → lint → format:check → test → build, then deploys to GitHub Pages on `main`.
 
 ## Repository-Specific Conventions & Gotchas
 
@@ -76,25 +78,44 @@ This is a **single-page static resume**, not an app. Understanding it requires r
 - **Windows `format:check` false positive:** with `core.autocrlf=true`, `npm run format:check` flags `.prettierrc` (CRLF vs Prettier's `lf` default). CI on Linux (LF) passes it — don't "fix" it.
 - **`npm test` is watch mode locally;** use `npm run test -- --run` for a one-shot run that mirrors CI.
 - **`tsconfig.json` uses an explicit `types` array.** Keep `vite/client` listed so TypeScript (6+) resolves the `.scss` side-effect import in `main.ts` (otherwise it errors TS2882).
-- **Lint is strict:** ESLint flat config (`eslint.config.js`) runs with `--max-warnings 0`, and `no-console` is a warning — a stray `console.*` fails CI.
+- **Lint is strict:** ESLint flat config (`eslint.config.js`) runs with `--max-warnings 0`, `@typescript-eslint/recommended` rules, and `no-console` as a warning — a stray `console.*` fails CI.
+- **Prettier uses `trailingComma: "all"`** — trailing commas are required on all elements, including function parameters and arguments.
 
 ## Project Structure
 
 ```
 ├── src/
-│   ├── main.ts          # TypeScript entry point
-│   ├── scss/            # Sass stylesheets
-│   ├── assets/          # Static assets (images, etc.)
-│   └── test/            # Unit tests
-├── public/              # Static public assets
-├── dist/               # Built output (auto-generated)
+│   ├── main.ts                    # TypeScript entry point
+│   ├── scss/                      # Sass stylesheets
+│   │   ├── components/            # Component styles
+│   │   ├── sections/              # Section-specific styles
+│   │   ├── variables/             # Sass variables
+│   │   ├── _global.scss           # Global styles
+│   │   ├── _modern-enhancements.scss  # Modern CSS enhancements
+│   │   └── styles.scss            # Main stylesheet entry
+│   ├── assets/                    # Source images
+│   └── test/                      # Unit tests
+│       ├── setup.ts               # Test setup (mocks, DOM)
+│       └── main.test.ts           # Main tests
+├── public/                        # Static public assets
+│   ├── assets/                    # Images, favicon, icons
+│   ├── llms.txt                   # LLM-friendly content
+│   ├── manifest.json              # PWA manifest
+│   ├── robots.txt                 # Robots.txt
+│   └── sitemap.xml                # Sitemap
+├── dist/                          # Built output (auto-generated)
 ├── .github/
-│   ├── workflows/      # GitHub Actions CI/CD
-│   └── dependabot.yml  # Automated dependency updates
-├── index.html          # Main HTML template
-├── vite.config.ts      # Vite configuration
-├── tsconfig.json       # TypeScript configuration
-└── package.json        # Dependencies and scripts
+│   ├── copilot-instructions.md    # AI assistant instructions
+│   ├── workflows/                 # GitHub Actions CI/CD
+│   │   ├── ci-cd.yml              # Build, test, and deploy pipeline
+│   │   └── codeql-analysis.yml    # Security analysis
+│   └── dependabot.yml             # Automated dependency updates
+├── index.html                     # Main HTML template
+├── eslint.config.js               # ESLint configuration (flat)
+├── tsconfig.json                  # TypeScript configuration
+├── vite.config.ts                 # Vite configuration
+├── vitest.config.ts               # Vitest configuration
+└── package.json                   # Dependencies and scripts
 ```
 
 ## Code Standards & Conventions
@@ -102,6 +123,7 @@ This is a **single-page static resume**, not an app. Understanding it requires r
 ### TypeScript Guidelines
 
 - Use strict TypeScript configuration with `noEmit` for type checking
+- Target ES2022 with `forceConsistentCasingInFileNames` enabled
 - Prefer `const` assertions and explicit typing for better IntelliSense
 - Use ES modules (`import`/`export`) exclusively
 - Avoid `any` types; use proper type definitions
@@ -115,8 +137,8 @@ This is a **single-page static resume**, not an app. Understanding it requires r
 
 ### Code Formatting
 
-- Prettier handles all formatting automatically
-- ESLint enforces code quality rules
+- Prettier handles all formatting automatically (`trailingComma: "all"`, `printWidth: 100`)
+- ESLint enforces code quality with `@typescript-eslint/recommended` rules
 - Use flat ESLint configuration (eslint.config.js)
 - Maximum line length: 100 characters
 
@@ -133,29 +155,20 @@ This is a **single-page static resume**, not an app. Understanding it requires r
 
 - Unit tests in `src/test/` directory
 - Test files use `.test.ts` or `.spec.ts` extensions
-- Use vitest for fast, Jest-compatible testing
-- jsdom for DOM manipulation testing
-
-### Testing Best Practices
-
-- Write tests for all business logic
-- Test user interactions and accessibility
-- Mock external dependencies appropriately
-- Aim for meaningful test descriptions
+- Use vitest with jsdom environment for DOM testing
+- Test setup in `src/test/setup.ts` (mocks IntersectionObserver, resets DOM)
 
 ### Example Test Structure
 
 ```typescript
-import { describe, it, expect, beforeEach } from 'vitest';
-import { JSDOM } from 'jsdom';
+import { describe, it, expect, beforeEach, vi } from 'vitest';
 
 describe('Component Name', () => {
   beforeEach(() => {
-    // Setup code
+    document.body.innerHTML = '<!-- setup DOM -->';
   });
 
   it('should perform expected behavior', () => {
-    // Test implementation
     expect(result).toBe(expected);
   });
 });
@@ -169,19 +182,20 @@ describe('Component Name', () => {
 2. Vite bundling with tree-shaking
 3. SCSS compilation and PostCSS processing
 4. Asset optimization and legacy browser support
-5. Output to `dist/` directory
+5. Sourcemap generation
+6. Output to `dist/` directory
 
 ### Deployment
 
 - Automatic deployment via GitHub Actions on push to `main`
-- Manual deployment: `npm run build` + push to `gh-pages` branch
+- Pages source must be set to "GitHub Actions" (not a branch)
 - Static site hosting on GitHub Pages
-- CDN distribution for optimal performance
+- Manual local preview: `npm run build && npm run preview`
 
 ### Browser Support
 
-- Modern browsers (ES2020+)
-- Legacy support via @vitejs/plugin-legacy
+- Modern browsers (ES2022+)
+- Legacy support via @vitejs/plugin-legacy (targets `defaults`)
 - Mobile-first responsive design
 - PWA capabilities for enhanced mobile experience
 
@@ -200,7 +214,7 @@ describe('Component Name', () => {
 1. **Run type checking** before committing: `npm run type-check`
 2. **Format code automatically**: `npm run format`
 3. **Fix linting issues**: `npm run lint:fix`
-4. **Test changes**: `npm test`
+4. **Test changes**: `npm run test -- --run`
 5. **Build to verify**: `npm run build`
 
 ### Code Quality Priorities
@@ -221,16 +235,17 @@ describe('Component Name', () => {
 ### Avoid These Patterns
 
 - jQuery or other legacy libraries (use vanilla JS/TS)
-- Inline styles (use CSS classes or CSS-in-JS)
+- Inline styles (use CSS classes)
 - Bootstrap 4 syntax (migrate to Bootstrap 5)
 - CommonJS modules (use ES modules)
+- `any` types (use proper type definitions)
 - Deprecated npm packages
 
 ## Security Considerations
 
 ### Dependency Management
 
-- Dependabot automatically updates dependencies
+- Dependabot automatically updates dependencies (weekly, npm + github-actions)
 - GitHub CodeQL scans for security vulnerabilities
 - Regular `npm audit` checks in CI/CD
 - Pin major versions, allow minor/patch updates
@@ -241,45 +256,6 @@ describe('Component Name', () => {
 - Sanitize any user-generated content
 - Use HTTPS for all external resources
 - Implement proper CORS policies
-
-### Development Security
-
-- Never commit secrets or API keys
-- Use environment variables for configuration
-- Validate all inputs and sanitize outputs
-- Follow OWASP security guidelines
-
-## Performance Guidelines
-
-### Bundle Optimization
-
-- Vite automatically handles tree-shaking
-- Use dynamic imports for code splitting when needed
-- Optimize images and assets in `public/` directory
-- Minimize CSS and JavaScript in production builds
-
-### Loading Performance
-
-- Lazy load images below the fold
-- Use appropriate image formats (WebP, AVIF)
-- Minimize render-blocking resources
-- Implement proper caching strategies
-
-## Accessibility Requirements
-
-### WCAG Compliance
-
-- Maintain WCAG 2.1 AA compliance
-- Use semantic HTML5 elements
-- Provide alt text for all images
-- Ensure keyboard navigation works
-
-### Testing Accessibility
-
-- Test with screen readers
-- Verify keyboard-only navigation
-- Check color contrast ratios
-- Validate ARIA attributes
 
 ## Contribution Workflow
 
@@ -295,7 +271,7 @@ describe('Component Name', () => {
 1. Make incremental changes with frequent testing
 2. Run quality checks: `npm run lint && npm run type-check`
 3. Write/update tests for new functionality
-4. Ensure all tests pass: `npm test`
+4. Ensure all tests pass: `npm run test -- --run`
 5. Format code: `npm run format`
 
 ### Submitting Changes
@@ -316,28 +292,17 @@ describe('Component Name', () => {
 - **Documentation**: Add JSDoc comments for complex functions
 - **Compatibility**: Ensure Bootstrap 5 and modern browser compatibility
 
-### Code Review Focus Areas
-
-- TypeScript type correctness and completeness
-- Bootstrap 5 component usage and accessibility
-- Test coverage and quality
-- Performance implications of changes
-- Security considerations for new dependencies
-
 ### Helpful Commands for AI Tools
 
 ```bash
 # Quick development setup
 npm install && npm run dev
 
-# Full quality check
-npm run lint && npm run type-check && npm test && npm run build
+# Full quality check (mirrors CI)
+npm run lint && npm run type-check && npm run format:check && npm run test -- --run && npm run build
 
 # Fix common issues
 npm run lint:fix && npm run format
-
-# Debug build issues
-npm run type-check && npm run build -- --debug
 ```
 
 This repository is optimized for AI-assisted development with comprehensive tooling, clear conventions, and automated quality checks. Always prioritize type safety, accessibility, and performance when making changes.
