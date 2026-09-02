@@ -7,11 +7,12 @@ import autoprefixer from 'autoprefixer';
 export default defineConfig({
   plugins: [
     legacy({
-      targets: ['defaults', 'not IE 11'],
+      targets: ['defaults'],
     }),
   ],
   build: {
     outDir: 'dist',
+    sourcemap: true,
     rolldownOptions: {
       input: {
         main: resolve(fileURLToPath(new URL('.', import.meta.url)), 'index.html'),

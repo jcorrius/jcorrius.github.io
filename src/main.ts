@@ -47,11 +47,6 @@ class SmoothScroll {
   }
 }
 
-// Initialize when DOM is loaded
-document.addEventListener('DOMContentLoaded', () => {
-  new SmoothScroll();
-});
-
 // Add some modern enhancements
 class ModernEnhancements {
   constructor() {
@@ -94,7 +89,8 @@ class ModernEnhancements {
   }
 }
 
-// Initialize modern enhancements
+// Initialize when DOM is loaded
 document.addEventListener('DOMContentLoaded', () => {
+  new SmoothScroll();
   new ModernEnhancements();
 });

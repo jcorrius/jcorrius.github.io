@@ -35,7 +35,7 @@ describe('Personal Website', () => {
 
   it('should handle scroll trigger clicks', () => {
     const scrollTrigger = document.querySelector(
-      '.js-scroll-trigger[href="#about"]'
+      '.js-scroll-trigger[href="#about"]',
     ) as HTMLAnchorElement;
     const targetSection = document.querySelector('#about');
 

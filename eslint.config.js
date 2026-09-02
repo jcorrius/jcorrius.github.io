@@ -5,6 +5,9 @@ import globals from 'globals';
 
 export default [
   {
+    ignores: ['dist/**', 'node_modules/**', 'scripts/**'],
+  },
+  {
     files: ['**/*.{ts,tsx,js,jsx}'],
     languageOptions: {
       parser: tsparser,
@@ -14,7 +17,7 @@ export default [
       },
       globals: {
         ...globals.browser,
-        ...globals.es2020,
+        ...globals.es2024,
       },
     },
     plugins: {
@@ -22,6 +25,7 @@ export default [
     },
     rules: {
       ...js.configs.recommended.rules,
+      ...tseslint.configs.recommended.rules,
       '@typescript-eslint/no-unused-vars': ['error', { argsIgnorePattern: '^_' }],
       'no-console': 'warn',
     },
@@ -39,12 +43,9 @@ export default [
     languageOptions: {
       globals: {
         ...globals.browser,
-        ...globals.jest,
+        ...globals.node,
         global: 'readonly',
       },
     },
-  },
-  {
-    ignores: ['dist/**', 'node_modules/**', 'scripts/**'],
   },
 ];
