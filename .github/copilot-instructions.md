@@ -67,19 +67,24 @@ This is a **single-page static resume**, not an app. Understanding it requires r
 
 - **`index.html` is the source of truth for all content.** The entire resume (experience, education, skills, etc.) is hand-authored static markup. There is no templating, data file, or client-side rendering — to change resume text, edit `index.html` directly.
 - **`src/main.ts` is the only TS entry and adds progressive enhancement only.** It wires smooth scrolling for `.js-scroll-trigger` links, an `IntersectionObserver` that adds `.animate-in` to `.resume-section` elements on scroll, and a `keyboard-navigation` body class toggle. No framework, router, or state management.
-- **Styling flows through one SCSS entry.** `src/main.ts` imports `src/scss/styles.scss`, which imports in order: variables → Bootstrap → global → components (`scss/components/`) → sections (`scss/sections/`) → modern enhancements. Vite + PostCSS/autoprefixer (configured in `vite.config.ts`) compile it.
+- **Styling flows through one SCSS entry.** `src/main.ts` imports `src/scss/styles.scss`, which imports only the needed Bootstrap modules (grid, navbar, nav, breadcrumb, transitions, utilities — not the full framework) plus custom SCSS. Vite + PostCSS/autoprefixer (configured in `vite.config.ts`) compile it.
 - **Content is mirrored as structured data.** `index.html` contains a schema.org `Person` JSON-LD block in `<head>` **and** inline microdata (`itemprop`/`itemscope`) throughout `<body>`. When editing resume content, keep the visible text, the microdata, and the JSON-LD in sync.
-- **Build/deploy:** `npm run build` runs `tsc && vite build`; `@vitejs/plugin-legacy` emits `*-legacy` and polyfill chunks. Sourcemaps are generated in `dist/`. CI (`.github/workflows/ci-cd.yml`, Node 24) runs type-check → lint → format:check → test → build, then deploys to GitHub Pages on `main`.
+- **Build/deploy:** `npm run build` runs `tsc && vite build`; `@vitejs/plugin-legacy` emits `*-legacy` and polyfill chunks. Sourcemaps are hidden (not referenced in output). CI (`.github/workflows/ci-cd.yml`, Node 24) runs type-check → lint → format:check → test → build, then deploys to GitHub Pages on `main`.
 
 ## Repository-Specific Conventions & Gotchas
 
-- **Don't commit rebuilt `dist/` artifacts.** `dist/` is gitignored, but `dist/index.html` and `dist/assets/img/*` were force-tracked historically. A production build rewrites `dist/index.html` with new hashed asset names that aren't tracked — revert it (`git checkout -- dist/index.html`) and commit only real source changes.
+- **Don't commit rebuilt `dist/` artifacts.** `dist/` is fully gitignored. Deployment is via GitHub Actions which builds and deploys automatically — never commit `dist/` contents.
 - **GitHub Pages deploys via GitHub Actions** (`build_type: workflow`), not a `gh-pages` branch. The repo's Pages **source must stay set to "GitHub Actions"**; if it reverts to "Deploy from a branch", the `github-pages` environment rejects deploys from `main` with "deployments are only allowed from gh-pages". The `test` job is the meaningful code gate; `deploy` runs only on `main`.
 - **Windows `format:check` false positive:** with `core.autocrlf=true`, `npm run format:check` flags `.prettierrc` (CRLF vs Prettier's `lf` default). CI on Linux (LF) passes it — don't "fix" it.
 - **`npm test` is watch mode locally;** use `npm run test -- --run` for a one-shot run that mirrors CI.
 - **`tsconfig.json` uses an explicit `types` array.** Keep `vite/client` listed so TypeScript (6+) resolves the `.scss` side-effect import in `main.ts` (otherwise it errors TS2882).
 - **Lint is strict:** ESLint flat config (`eslint.config.js`) runs with `--max-warnings 0`, `@typescript-eslint/recommended` rules, and `no-console` as a warning — a stray `console.*` fails CI.
 - **Prettier uses `trailingComma: "all"`** — trailing commas are required on all elements, including function parameters and arguments.
+- **Content-Security-Policy** is set via `<meta>` tag in `index.html`. `script-src` includes `'unsafe-inline'` because Vite uses inline module scripts for browser detection and legacy fallback. `style-src` allows Google Fonts. No external scripts (Font Awesome removed, icons are inline SVGs).
+- **Icons are inline SVGs** — Font Awesome was removed. All icons (social, checkmarks, graduation caps) are inline SVGs in `index.html`. Do not re-add Font Awesome or any icon CDN.
+- **Bootstrap is tree-shaken** — `src/scss/styles.scss` imports only the needed Bootstrap modules. If you need a new Bootstrap component (e.g., forms, buttons, cards), add its `@import` to `styles.scss`.
+- **Sections start at `opacity: 0`** and become visible via `.animate-in` class added by `IntersectionObserver` in `main.ts`. A CSS fallback animation makes them visible after 2s even if JS fails.
+- **Google Fonts load async** via `media="print"` + `onload` pattern with `preload` hints. Fonts use `display=swap` to avoid FOIT.
 
 ## Project Structure
 
@@ -110,6 +115,7 @@ This is a **single-page static resume**, not an app. Understanding it requires r
 │   │   ├── ci-cd.yml              # Build, test, and deploy pipeline
 │   │   └── codeql-analysis.yml    # Security analysis
 │   └── dependabot.yml             # Automated dependency updates
+├── AGENTS.md                      # Entry point for AI coding agents
 ├── index.html                     # Main HTML template
 ├── eslint.config.js               # ESLint configuration (flat)
 ├── tsconfig.json                  # TypeScript configuration
@@ -252,10 +258,12 @@ describe('Component Name', () => {
 
 ### Content Security
 
-- No external script execution
+- Content-Security-Policy set via `<meta>` tag (script-src 'self' 'unsafe-inline', style-src 'self' Google Fonts 'unsafe-inline')
+- No external scripts — all icons are inline SVGs
+- Email obfuscated to reduce scraping
+- Sourcemaps hidden in production (not referenced in output)
 - Sanitize any user-generated content
 - Use HTTPS for all external resources
-- Implement proper CORS policies
 
 ## Contribution Workflow
 

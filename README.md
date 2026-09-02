@@ -8,14 +8,14 @@ Visit the live website: [https://jcorrius.github.io](https://jcorrius.github.io)
 
 ## ✨ Features
 
-- **Modern Tech Stack**: TypeScript, Vite, Bootstrap 5, SCSS
+- **Modern Tech Stack**: TypeScript, Vite, Bootstrap 5 (tree-shaken), SCSS
 - **Developer Experience**: ESLint, Prettier, hot module replacement
 - **Testing**: Vitest with DOM testing utilities
 - **PWA Ready**: Web app manifest and service worker support
 - **CI/CD Pipeline**: Automated testing, building, and deployment
-- **Security**: CodeQL analysis and automated dependency updates
+- **Security**: CSP, CodeQL analysis, automated dependency updates, no external scripts
 - **Accessibility**: Enhanced keyboard navigation and screen reader support
-- **Performance**: Optimized builds with tree-shaking and legacy browser support
+- **Performance**: Inline SVG icons, tree-shaken Bootstrap, async font loading, ~600KB saved vs original
 
 ## 🛠️ Development
 
@@ -65,11 +65,12 @@ npm run test:coverage # Run tests with coverage report
 
 ```
 ├── .github/
-│   ├── copilot-instructions.md  # GitHub Copilot instructions
+│   ├── copilot-instructions.md  # AI assistant instructions
 │   ├── workflows/               # GitHub Actions CI/CD
 │   │   ├── ci-cd.yml            # Build, test, and deploy pipeline
 │   │   └── codeql-analysis.yml  # Security analysis
 │   └── dependabot.yml           # Automated dependency updates
+├── AGENTS.md                    # Entry point for AI coding agents
 ├── public/                      # Static assets
 │   ├── assets/                  # Images, favicon, icons
 │   ├── llms.txt                 # LLM-friendly content
@@ -114,6 +115,10 @@ This project was modernized from the original Start Bootstrap Resume template:
 - ✅ Fixed security vulnerabilities and keep them monitored via Dependabot
 - ✅ Added Dependabot for automated dependency management
 - ✅ Implemented GitHub CodeQL for security scanning
+- ✅ Added Content-Security-Policy meta tag
+- ✅ Self-hosted icons (inline SVGs, no external CDN)
+- ✅ Obfuscated email to reduce scraping
+- ✅ Hidden sourcemaps in production
 
 ### Developer Experience
 
@@ -127,7 +132,10 @@ This project was modernized from the original Start Bootstrap Resume template:
 
 - ✅ Migrated from custom Node.js scripts to Vite
 - ✅ Updated to PostCSS 8 with modern autoprefixer
-- ✅ Added tree-shaking and modern bundling optimizations
+- ✅ Tree-shaken Bootstrap (only grid, navbar, nav, breadcrumb, utilities)
+- ✅ Inline SVG icons instead of Font Awesome (saves ~350KB)
+- ✅ Async Google Fonts loading with preload
+- ✅ Lazy loading and async decoding for images
 - ✅ Implemented development server with live reload
 
 ### CI/CD & Automation
