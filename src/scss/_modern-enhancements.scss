@@ -12,6 +12,18 @@
   }
 }
 
+// Fallback: if JS doesn't load, show content after 2s
+@keyframes fallback-show {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.resume-section {
+  animation: fallback-show 0s 2s forwards;
+}
+
 // Smooth focus states for better accessibility
 .keyboard-navigation {
   *:focus {
