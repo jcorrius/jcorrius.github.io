@@ -1,6 +1,9 @@
 # Jesús Corrius - Personal Website
 
-A modern, responsive personal resume website built with TypeScript, Vite, and Bootstrap 5. This project has been modernized from the original Start Bootstrap Resume template to align with current web development best practices and AI-assisted coding tools.
+[![CI/CD](https://github.com/jcorrius/jcorrius.github.io/actions/workflows/ci-cd.yml/badge.svg)](https://github.com/jcorrius/jcorrius.github.io/actions/workflows/ci-cd.yml)
+[![CodeQL](https://github.com/jcorrius/jcorrius.github.io/actions/workflows/codeql-analysis.yml/badge.svg)](https://github.com/jcorrius/jcorrius.github.io/actions/workflows/codeql-analysis.yml)
+
+A modern, responsive personal resume website built with TypeScript, Vite, and Bootstrap 5.
 
 ## 🚀 Live Demo
 
@@ -8,20 +11,20 @@ Visit the live website: [https://jcorrius.github.io](https://jcorrius.github.io)
 
 ## ✨ Features
 
-- **Modern Tech Stack**: TypeScript, Vite, Bootstrap 5 (tree-shaken), SCSS
-- **Developer Experience**: ESLint, Prettier, hot module replacement
-- **Testing**: Vitest with DOM testing utilities
+- **Modern Tech Stack**: TypeScript, Vite 8, Bootstrap 5 (tree-shaken), SCSS
+- **Developer Experience**: ESLint 10, Prettier, hot module replacement
+- **Testing**: Vitest 5 with DOM testing utilities
 - **PWA Manifest**: Web app manifest (no service worker)
 - **CI/CD Pipeline**: Automated testing, building, and deployment
 - **Security**: CSP, CodeQL analysis, automated dependency updates, no external scripts
-- **Accessibility**: Enhanced keyboard navigation and screen reader support
-- **Performance**: Inline SVG icons, tree-shaken Bootstrap, async font loading, ~600KB saved vs original
+- **Accessibility**: Skip-to-content link, keyboard navigation, screen reader support
+- **Performance**: Inline SVG icons, tree-shaken Bootstrap, async font loading
 
 ## 🛠️ Development
 
 ### Prerequisites
 
-- Node.js 22+
+- Node.js 24+
 - npm
 
 ### Getting Started
@@ -54,9 +57,10 @@ npm run format:check # Check code formatting
 npm run type-check   # Run TypeScript type checking
 
 # Testing
-npm run test         # Run tests
-npm run test:ui      # Run tests with UI
-npm run test:coverage # Run tests with coverage report
+npm run test              # Run tests in watch mode
+npm run test -- --run     # Run tests once (non-watch, mirrors CI)
+npm run test:ui           # Run tests with UI
+npm run test:coverage     # Run tests with coverage report
 ```
 
 ## 🏗️ Architecture
@@ -69,8 +73,9 @@ npm run test:coverage # Run tests with coverage report
 │   ├── workflows/               # GitHub Actions CI/CD
 │   │   ├── ci-cd.yml            # Build, test, and deploy pipeline
 │   │   └── codeql-analysis.yml  # Security analysis
-│   └── dependabot.yml           # Automated dependency updates
+│   └── dependabot.yml           # Automated dependency updates (grouped)
 ├── AGENTS.md                    # Entry point for AI coding agents
+├── index.html                   # Main HTML (content source of truth)
 ├── public/                      # Static assets
 │   ├── assets/                  # Images, favicon, icons
 │   ├── llms.txt                 # LLM-friendly content
@@ -98,12 +103,12 @@ npm run test:coverage # Run tests with coverage report
 
 ### Key Technologies
 
-- **Vite**: Fast build tool with hot module replacement
-- **TypeScript**: Type-safe JavaScript with excellent tooling
-- **Bootstrap 5**: Modern CSS framework with utility classes
+- **Vite 8**: Fast build tool with hot module replacement (Rolldown-based)
+- **TypeScript 6**: Type-safe JavaScript with excellent tooling
+- **Bootstrap 5**: Modern CSS framework, tree-shaken to ~117KB CSS
 - **Sass**: CSS preprocessor for maintainable stylesheets
-- **Vitest**: Fast unit testing framework
-- **ESLint + Prettier**: Code quality and formatting
+- **Vitest 5**: Fast unit testing framework
+- **ESLint 10 + Prettier**: Code quality and formatting
 
 ## 🚀 Deployment
 
@@ -124,11 +129,12 @@ npm run build
 1. Fork the repository
 2. Create a feature branch: `git checkout -b feature/amazing-feature`
 3. Make your changes
-4. Run tests: `npm test`
-5. Check linting: `npm run lint`
-6. Commit your changes: `git commit -m 'Add amazing feature'`
-7. Push to the branch: `git push origin feature/amazing-feature`
-8. Open a Pull Request
+4. Format: `npm run format`
+5. Lint: `npm run lint`
+6. Test: `npm run test -- --run`
+7. Commit: `git commit -m 'Add amazing feature'`
+8. Push: `git push origin feature/amazing-feature`
+9. Open a Pull Request
 
 ## 📄 License
 
