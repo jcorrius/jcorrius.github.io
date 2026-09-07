@@ -1,5 +1,18 @@
 // Global styling for this template
 
+// Skip to content link for accessibility
+.skip-link {
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 1100;
+  padding: 0.75rem 1rem;
+  background-color: var(--bs-primary, #bd5d38);
+  color: #fff;
+  text-decoration: none;
+  border-radius: 0 0 0.25rem 0;
+}
+
 body {
   padding-top: $navbar-base-height;
   color: $gray-600;
