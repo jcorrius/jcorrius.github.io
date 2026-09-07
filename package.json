@@ -60,7 +60,7 @@
     "sass": "^1.101.0",
     "typescript": "^6.0.3",
     "vite": "^8.1.3",
-    "vitest": "^4.1.10"
+    "vitest": "^5.0.0"
   },
   "allowScripts": {
     "@parcel/watcher@2.6.0": true,
