@@ -11,7 +11,7 @@ Visit the live website: [https://jcorrius.github.io](https://jcorrius.github.io)
 - **Modern Tech Stack**: TypeScript, Vite, Bootstrap 5 (tree-shaken), SCSS
 - **Developer Experience**: ESLint, Prettier, hot module replacement
 - **Testing**: Vitest with DOM testing utilities
-- **PWA Ready**: Web app manifest and service worker support
+- **PWA Manifest**: Web app manifest (no service worker)
 - **CI/CD Pipeline**: Automated testing, building, and deployment
 - **Security**: CSP, CodeQL analysis, automated dependency updates, no external scripts
 - **Accessibility**: Enhanced keyboard navigation and screen reader support
@@ -149,7 +149,7 @@ This project was modernized from the original Start Bootstrap Resume template:
 
 - ✅ Updated to Bootstrap 5 for modern CSS features
 - ✅ Improved accessibility and SEO
-- ✅ Added PWA capabilities
+- ✅ Added PWA manifest (no service worker)
 - ✅ Enhanced with modern CSS animations and interactions
 
 ## 🚀 Deployment
