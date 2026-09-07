@@ -13,7 +13,7 @@ This is a modernized personal resume website for Jesús Corrius, built with mode
 - **Frontend**: TypeScript, HTML5, Bootstrap 5.3.x
 - **Build System**: Vite 8.x (Rolldown-based) with hot module replacement
 - **Styling**: SCSS/Sass with PostCSS and Autoprefixer
-- **Testing**: Vitest 4.x with jsdom for DOM testing
+- **Testing**: Vitest 5.x with jsdom for DOM testing
 - **Code Quality**: ESLint 10.x (flat config) + Prettier
 - **CI/CD**: GitHub Actions with automated deployment
 
@@ -22,7 +22,8 @@ This is a modernized personal resume website for Jesús Corrius, built with mode
 - `bootstrap@^5.3.8` - UI framework with data-bs-* attributes
 - `vite@^8.1.3` - Modern build tool and dev server (bundles with Rolldown)
 - `typescript@^6.0.3` - Type safety and enhanced IntelliSense
-- `vitest@^4.1.10` - Fast unit testing framework
+- `vitest@^5.0.0` - Fast unit testing framework
+- `@vitest/ui@^5.0.0` - Vitest UI (must match vitest version)
 - `@vitejs/plugin-legacy@^8.1.0` - Legacy browser support
 - `eslint@^10.6.0` - Code linting (flat config)
 - `prettier@^3.9.4` - Code formatting
@@ -261,6 +262,8 @@ describe('Component Name', () => {
 ### Dependency Management
 
 - Dependabot automatically updates dependencies (weekly, npm + github-actions)
+- Related dependencies are grouped in Dependabot config (vitest+@vitest/ui, @typescript-eslint/*, jsdom+@types/jsdom, eslint+> @eslint/js+globals)
+- TypeScript 7 is not supported yet (breaks @typescript-eslint) — skip TS major bumps
 - GitHub CodeQL scans for security vulnerabilities
 - Regular `npm audit` checks in CI/CD
 - Pin major versions, allow minor/patch updates
