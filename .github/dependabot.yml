@@ -2,7 +2,6 @@ version: 2
 updates:
   # Maintain dependencies for GitHub Actions
   - package-ecosystem: 'github-actions'
-    # Workflow files stored in the default location of `.github/workflows`. (You don't need to specify `/.github/workflows` for `directory`. You can use `directory: "/"`.)
     directory: '/'
     schedule:
       interval: 'weekly'
@@ -22,3 +21,25 @@ updates:
     commit-message:
       prefix: 'chore(deps):'
       include: 'scope'
+    groups:
+      # vitest and its UI must be upgraded together (peer deps)
+      vitest:
+        patterns:
+          - 'vitest'
+          - '@vitest/ui'
+      # eslint plugin and parser must be the same version
+      typescript-eslint:
+        patterns:
+          - '@typescript-eslint/eslint-plugin'
+          - '@typescript-eslint/parser'
+      # jsdom and its types should stay in sync
+      jsdom:
+        patterns:
+          - 'jsdom'
+          - '@types/jsdom'
+      # eslint ecosystem
+      eslint:
+        patterns:
+          - 'eslint'
+          - '@eslint/js'
+          - 'globals'
