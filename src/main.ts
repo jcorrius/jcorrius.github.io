@@ -89,8 +89,33 @@ class ModernEnhancements {
   }
 }
 
+/**
+ * Email obfuscation: decode base64 data-email attribute on click
+ */
+class EmailObfuscation {
+  constructor() {
+    this.initEmailLinks();
+  }
+
+  private initEmailLinks(): void {
+    const emailLinks = document.querySelectorAll<HTMLAnchorElement>('a[data-email]');
+
+    emailLinks.forEach((link) => {
+      link.addEventListener('click', (event) => {
+        event.preventDefault();
+        const encoded = link.dataset.email;
+        if (encoded) {
+          const decoded = atob(encoded);
+          window.location.href = `mailto:${decoded}`;
+        }
+      });
+    });
+  }
+}
+
 // Initialize when DOM is loaded
 document.addEventListener('DOMContentLoaded', () => {
   new SmoothScroll();
   new ModernEnhancements();
+  new EmailObfuscation();
 });
